@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 import os
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
 
 intents = discord.Intents.default()
@@ -28,6 +28,11 @@ async def on_message(msg):
         print("asdf")
     await bot.process_commands(msg)
 
-load_dotenv()
-token = os.getenv("DISCORD_BOT_TOKEN")
+# Get bot token from .env file
+# load_dotenv()
+# token = os.getenv("DISCORD_BOT_TOKEN")
+
+# Get bot token from OS' env var
+token = os.environ["DISCORD_BOT_TOKEN"]  
+
 bot.run(token)
