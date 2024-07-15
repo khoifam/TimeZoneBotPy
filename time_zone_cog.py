@@ -12,7 +12,7 @@ class TimeZoneCog(commands.Cog):
 
     @commands.command()
     async def addbingbong(self, ctx: commands.Context):
-        resp = self.channel_manager.text_channel_add(ctx.channel)
+        resp = await self.channel_manager.text_channel_add(ctx.channel)
         await ctx.send(resp)
 
     @commands.command()
@@ -23,7 +23,7 @@ class TimeZoneCog(commands.Cog):
 
     @commands.command()
     async def removebingbong(self, ctx: commands.Context):
-        resp = self.channel_manager.text_channel_remove(ctx.channel)
+        resp = await self.channel_manager.text_channel_remove(ctx.channel)
         await ctx.send(resp)
 
     def cog_unload(self):

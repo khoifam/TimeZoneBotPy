@@ -1,6 +1,5 @@
 from time_zone_channel_manager import TimeZoneChannelManager
 from discord.ext import commands
-import time
 import pytz
 from datetime import datetime
 
@@ -26,7 +25,7 @@ class TimeZoneUpdater():
     async def update(self):
         topic_str = self.construct_time_str()
 
-        for id in self.channel_manager.get_text_channel_ids():
+        for id in (await self.channel_manager.get_text_channel_ids()):
             text_channel = self.bot.get_channel(id)
             print(text_channel.name)
             
