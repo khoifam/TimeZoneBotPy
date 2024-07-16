@@ -8,22 +8,21 @@ class TimeZoneCog(commands.Cog):
         self.channel_manager = TimeZoneChannelManager()
         self.time_zone_updater = TimeZoneUpdater(self.channel_manager, self.bot)
         self.updater_task.start()
-        print("TimeZoneCog initialized")
+        print("TimeZoneCog:", "initialized")
 
     @commands.command()
     async def addbingbong(self, ctx: commands.Context):
-        resp = await self.channel_manager.text_channel_add(ctx.channel)
+        resp = self.channel_manager.text_channel_add(ctx.channel)
         await ctx.send(resp)
 
     @commands.command()
     async def bingbong(self, ctx: commands.Context):
-        # print(ctx.channel.id)
         resp = self.channel_manager.text_channel_info(ctx.channel)
         await ctx.send(resp)
 
     @commands.command()
     async def removebingbong(self, ctx: commands.Context):
-        resp = await self.channel_manager.text_channel_remove(ctx.channel)
+        resp = self.channel_manager.text_channel_remove(ctx.channel)
         await ctx.send(resp)
 
     def cog_unload(self):
@@ -31,12 +30,12 @@ class TimeZoneCog(commands.Cog):
 
     @tasks.loop(seconds=61.0)
     async def updater_task(self):
-        print("Update")
+        print("TimeZoneCog:", "Update timezones")
         await self.time_zone_updater.update()
 
     @updater_task.before_loop
     async def before_updater_task(self):
-        print("Updater waiting...")
+        print("TimeZoneCog:", "Updater waiting...")
         await self.bot.wait_until_ready()
 
 async def setup(bot: commands.Bot):

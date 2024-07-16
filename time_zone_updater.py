@@ -19,14 +19,16 @@ class TimeZoneUpdater():
         output = "VN: " + time_strings[0] + " ---- AUS: " + time_strings[1] + " ---- West: " \
             + time_strings[2] + " ---- East: " + time_strings[3]
 
-        print(output)
+        print("TimeZoneUpdater:", output)
         return output
     
     async def update(self):
         topic_str = self.construct_time_str()
 
-        for id in (await self.channel_manager.get_text_channel_ids()):
+        for id in self.channel_manager.get_text_channel_ids():
             text_channel = self.bot.get_channel(id)
-            print(text_channel.name)
-            
-            await text_channel.edit(topic=topic_str)
+            if text_channel != None:
+                print("TimeZoneUpdater:", text_channel.name, text_channel.id)
+                await text_channel.edit(topic=topic_str)
+            else:
+                self.channel_manager.prune_id_from_db(id)
