@@ -3,15 +3,26 @@
 <p align="center"><i>A discord bot that displays time zones as text channel's topic.</i></p>
 
 # How to run
-1. Build the Dockerfile to a docker image
+Warning: To run this bot, you have to shutdown your local MongoDB `mongod` process by doing:
 ```sh
-sudo docker build . -t khoifam/timezonebotpy --no-cache
+sudo systemctl stop mongod
 ```
-2. Run the docker image with your discord bot token with the environment variable "DISCORD_BOT_TOKEN"  
+1. Export YOUR discord bot token
 ```sh
-sudo docker run -e DISCORD_BOT_TOKEN=your_token -e MONGODB_CONNSTRING="mongodb://localhost:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.2.12" --name timezonebotpy --network="host" -dt khoifam/timezonebotpy
+export DISCORD_BOT_TOKEN=your_token
+```
+2. Run the docker compose file  
+```sh
+sudo docker compose up -d
 ```
 3. Inspect the bot's logs:
 ```sh
-sudo docker logs -f timezonebotpy   
+sudo docker logs -f timezonebotpy-bot
+```
+4. Access the containerized database:
+```sh
+sudo docker exec -it timezonebotpy-db sh
+```
+```sh
+mongosh
 ```

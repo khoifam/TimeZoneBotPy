@@ -3,7 +3,7 @@ from pymongo import MongoClient
 
 class TimeZoneChannelManager():
     def __init__(self) -> None:
-        self.text_channel_ids_table = MongoClient("localhost", 27017)["timezonebotpy"]["textchannels"]
+        self.text_channel_ids_table = MongoClient("timezonebotpy-db", 27017)["timezonebotpy"]["textchannels"]
 
     def get_text_channel_ids(self) -> set:
         ids = set()

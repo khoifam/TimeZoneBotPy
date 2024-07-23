@@ -1,0 +1,17 @@
+services:
+  bot:
+    build: .
+    environment:
+      - MONGODB_CONNSTRING=mongodb://db:27017
+      - DISCORD_BOT_TOKEN=$DISCORD_BOT_TOKEN
+    container_name: timezonebotpy-bot
+    depends_on:
+      - db
+
+  db:
+    image: mongo
+    container_name: timezonebotpy-db
+    ports:
+      - 27017:27017
+    volumes:
+      - /var/lib/mongodb:/data/db
