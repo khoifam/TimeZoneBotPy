@@ -1,6 +1,7 @@
 services:
   bot:
     build: .
+    image: khoifam/timezonebotpy
     environment:
       - MONGODB_CONNSTRING=mongodb://db:27017
       - DISCORD_BOT_TOKEN=$DISCORD_BOT_TOKEN
